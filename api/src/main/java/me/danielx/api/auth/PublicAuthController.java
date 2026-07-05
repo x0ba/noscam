@@ -2,8 +2,10 @@ package me.danielx.api.auth;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import me.danielx.api.auth.dto.LoginRequest;
+import me.danielx.api.auth.dto.LoginResponse;
 import me.danielx.api.auth.dto.RegisterRequest;
-import me.danielx.api.auth.dto.RegisterUserResponse;
+import me.danielx.api.auth.dto.RegisterResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +20,14 @@ public class PublicAuthController {
     private final PublicAuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterUserResponse> register(@Valid @RequestBody RegisterRequest request) {
-        RegisterUserResponse response = authService.registerUser(request);
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) {
+        RegisterResponse response = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        LoginResponse response = authService.login(request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

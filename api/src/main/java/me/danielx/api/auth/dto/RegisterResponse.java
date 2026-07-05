@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Builder
-public record RegisterUserResponse(
+public record RegisterResponse(
         UUID publicId,
         String email,
         boolean emailVerified,
