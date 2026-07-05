@@ -3,6 +3,7 @@ package me.danielx.api.accounts.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import me.danielx.api.users.domain.User;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
@@ -26,6 +27,10 @@ public class Account {
     @Column(nullable = false, unique = true, updatable = false)
     @NotNull
     private UUID publicId = UUID.randomUUID();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    private User user;
 
     @NotNull
     @Length(max = 150)
