@@ -18,3 +18,4 @@ services:
 
 volumes:
   postgres_data:
+    name: noscam_api_postgres_data
