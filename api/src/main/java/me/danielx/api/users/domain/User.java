@@ -1,73 +1,73 @@
-package me.danielx.api.accounts.domain;
+package me.danielx.api.users.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+@Builder
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false, unique = true, updatable = false)
+    @Builder.Default
     @NotNull
+    @Column(nullable = false, unique = true, updatable = false)
     private UUID publicId = UUID.randomUUID();
 
+    @Column(nullable = false, unique = true, length = 254)
     @NotNull
-    @Length(max = 150)
-    @Column(nullable = false, length = 150)
-    private String bank;
+    @Length(max = 254)
+    private String email;
 
+    @Column(nullable = false)
+    private boolean emailVerified = false;
+
+    @Column(nullable = false, length = 255)
     @NotNull
     @Length(max = 255)
-    @Column(nullable = false, length = 255)
-    private String accountName;
+    private String passwordHash;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 100)
-    private AccountType accountType;
-
     @NotNull
+    @Length(max = 100)
+    private String firstName;
+
+    @Column(nullable = false, length = 100)
+    @NotNull
+    @Length(max = 100)
+    private String lastName;
+
     @Column(nullable = false)
-    private BigDecimal balance;
-
     @NotNull
-    @Length(max = 3)
-    @Column(nullable = false, length = 3)
-    private String currency;
-
-    @NotNull
-    @Column(nullable = false)
     private Instant createdAt;
 
-    @NotNull
     @Column(nullable = false)
+    @NotNull
     private Instant updatedAt;
 
     @PrePersist
-    protected void onCreate() {
+    void onCreate() {
         Instant now = Instant.now();
         this.createdAt = now;
         this.updatedAt = now;
     }
 
     @PreUpdate
-    protected void onUpdate() {
+    void onUpdate() {
         this.updatedAt = Instant.now();
     }
+
 }
