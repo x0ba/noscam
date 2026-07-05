@@ -1,8 +1,8 @@
 package me.danielx.api.accounts;
 
 public enum AccountType {
-    CREDIT_CARD,
-    CHECKING,
-    SAVINGS,
-    INVESTMENT
+  CREDIT_CARD,
+  CHECKING,
+  SAVINGS,
+  INVESTMENT
 }

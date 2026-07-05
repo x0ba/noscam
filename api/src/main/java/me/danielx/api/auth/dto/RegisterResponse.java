@@ -1,17 +1,14 @@
 package me.danielx.api.auth.dto;
 
-import lombok.Builder;
-
 import java.time.Instant;
 import java.util.UUID;
+import lombok.Builder;
 
 @Builder
 public record RegisterResponse(
-        UUID publicId,
-        String email,
-        boolean emailVerified,
-        String firstName,
-        String lastName,
-        Instant createdAt
-) {
-}
+    UUID publicId,
+    String email,
+    boolean emailVerified,
+    String firstName,
+    String lastName,
+    Instant createdAt) {}
