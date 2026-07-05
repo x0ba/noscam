@@ -1,4 +1,4 @@
-package me.danielx.api.users.domain;
+package me.danielx.api.users;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

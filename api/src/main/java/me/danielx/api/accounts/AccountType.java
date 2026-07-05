@@ -1,4 +1,4 @@
-package me.danielx.api.accounts.domain;
+package me.danielx.api.accounts;
 
 public enum AccountType {
     CREDIT_CARD,

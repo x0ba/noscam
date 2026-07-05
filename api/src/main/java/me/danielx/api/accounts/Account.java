@@ -1,9 +1,9 @@
-package me.danielx.api.accounts.domain;
+package me.danielx.api.accounts;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import me.danielx.api.users.domain.User;
+import me.danielx.api.users.User;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
