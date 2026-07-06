@@ -1,13 +1,13 @@
 package me.danielx.api.security;
 
 import jakarta.servlet.DispatcherType;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,17 +22,40 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(
+    return http.authorizeHttpRequests(
             auth ->
                 auth.dispatcherTypeMatchers(DispatcherType.ERROR)
                     .permitAll()
-                    .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login")
-                    .permitAll()
-                    .requestMatchers("/actuator/health")
+                    .requestMatchers("/api/v1/auth/register", "/actuator/health")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
+        .formLogin(
+            form ->
+                form.loginProcessingUrl("/api/v1/auth/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .successHandler(
+                        (request, response, authentication) ->
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT))
+                    .failureHandler(
+                        (request, response, exception) ->
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                    .permitAll())
+        .logout(
+            logout ->
+                logout
+                    .logoutUrl("/api/v1/auth/logout")
+                    .logoutSuccessHandler(
+                        (request, response, authentication) ->
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT)))
+        .exceptionHandling(
+            exceptions ->
+                exceptions.authenticationEntryPoint(
+                    (request, response, exception) ->
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
+        .requestCache(cache -> cache.disable())
+        .csrf(csrf -> csrf.spa())
         .build();
   }
 
