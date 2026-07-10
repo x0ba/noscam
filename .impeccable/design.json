@@ -1,0 +1,353 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-10T04:04:13.000Z",
+  "title": "Design System: Noscam",
+  "extensions": {
+    "colorMeta": {
+      "harbor-slate": {
+        "role": "primary",
+        "displayName": "Harbor Slate",
+        "canonical": "oklch(0.218 0.008 223.9)",
+        "tonalRamp": [
+          "oklch(0.15 0.008 223.9)",
+          "oklch(0.218 0.008 223.9)",
+          "oklch(0.275 0.011 216.9)",
+          "oklch(0.378 0.015 216)",
+          "oklch(0.45 0.017 213.2)",
+          "oklch(0.56 0.021 213.5)",
+          "oklch(0.723 0.014 214.4)",
+          "oklch(0.925 0.005 214.3)"
+        ]
+      },
+      "harbor-ink": {
+        "role": "neutral",
+        "displayName": "Harbor Ink",
+        "canonical": "oklch(0.148 0.004 228.8)",
+        "tonalRamp": [
+          "oklch(0.148 0.004 228.8)",
+          "oklch(0.218 0.008 223.9)",
+          "oklch(0.275 0.011 216.9)",
+          "oklch(0.378 0.015 216)",
+          "oklch(0.45 0.017 213.2)",
+          "oklch(0.56 0.021 213.5)",
+          "oklch(0.723 0.014 214.4)",
+          "oklch(0.963 0.002 197.1)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.925 0.005 214.3)",
+          "oklch(0.95 0.003 200)",
+          "oklch(0.963 0.002 197.1)",
+          "oklch(0.975 0.002 197.1)",
+          "oklch(0.987 0.002 197.1)",
+          "oklch(0.993 0.001 197)",
+          "oklch(0.997 0 0)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "surface-muted": {
+        "role": "neutral",
+        "displayName": "Surface Muted",
+        "canonical": "oklch(0.963 0.002 197.1)",
+        "tonalRamp": [
+          "oklch(0.85 0.005 210)",
+          "oklch(0.88 0.004 205)",
+          "oklch(0.91 0.003 200)",
+          "oklch(0.94 0.003 198)",
+          "oklch(0.963 0.002 197.1)",
+          "oklch(0.975 0.002 197.1)",
+          "oklch(0.987 0.002 197.1)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "surface-sidebar": {
+        "role": "neutral",
+        "displayName": "Surface Sidebar",
+        "canonical": "oklch(0.987 0.002 197.1)",
+        "tonalRamp": [
+          "oklch(0.9 0.004 210)",
+          "oklch(0.93 0.003 200)",
+          "oklch(0.95 0.003 198)",
+          "oklch(0.963 0.002 197.1)",
+          "oklch(0.975 0.002 197.1)",
+          "oklch(0.987 0.002 197.1)",
+          "oklch(0.993 0.001 197)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "oklch(0.56 0.021 213.5)",
+        "tonalRamp": [
+          "oklch(0.275 0.011 216.9)",
+          "oklch(0.378 0.015 216)",
+          "oklch(0.45 0.017 213.2)",
+          "oklch(0.56 0.021 213.5)",
+          "oklch(0.65 0.018 214)",
+          "oklch(0.723 0.014 214.4)",
+          "oklch(0.85 0.008 214)",
+          "oklch(0.925 0.005 214.3)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "canonical": "oklch(0.925 0.005 214.3)",
+        "tonalRamp": [
+          "oklch(0.75 0.01 214)",
+          "oklch(0.8 0.008 214)",
+          "oklch(0.85 0.007 214)",
+          "oklch(0.88 0.006 214)",
+          "oklch(0.9 0.005 214)",
+          "oklch(0.925 0.005 214.3)",
+          "oklch(0.95 0.003 200)",
+          "oklch(0.975 0.002 197.1)"
+        ]
+      },
+      "ring": {
+        "role": "neutral",
+        "displayName": "Ring",
+        "canonical": "oklch(0.723 0.014 214.4)",
+        "tonalRamp": [
+          "oklch(0.45 0.017 213.2)",
+          "oklch(0.56 0.021 213.5)",
+          "oklch(0.65 0.016 214)",
+          "oklch(0.723 0.014 214.4)",
+          "oklch(0.8 0.01 214)",
+          "oklch(0.85 0.008 214)",
+          "oklch(0.9 0.006 214)",
+          "oklch(0.95 0.003 200)"
+        ]
+      },
+      "on-primary": {
+        "role": "neutral",
+        "displayName": "On Primary",
+        "canonical": "oklch(0.987 0.002 197.1)",
+        "tonalRamp": [
+          "oklch(0.85 0.005 200)",
+          "oklch(0.9 0.003 198)",
+          "oklch(0.94 0.002 197)",
+          "oklch(0.963 0.002 197.1)",
+          "oklch(0.975 0.002 197.1)",
+          "oklch(0.987 0.002 197.1)",
+          "oklch(0.993 0.001 197)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "destructive": {
+        "role": "primary",
+        "displayName": "Destructive",
+        "canonical": "oklch(0.577 0.245 27.325)",
+        "tonalRamp": [
+          "oklch(0.35 0.18 27)",
+          "oklch(0.45 0.21 27)",
+          "oklch(0.52 0.23 27)",
+          "oklch(0.577 0.245 27.325)",
+          "oklch(0.65 0.2 27)",
+          "oklch(0.72 0.16 27)",
+          "oklch(0.82 0.1 27)",
+          "oklch(0.92 0.04 27)"
+        ]
+      },
+      "destructive-soft": {
+        "role": "primary",
+        "displayName": "Destructive Soft",
+        "canonical": "oklch(0.577 0.245 27.325 / 0.1)",
+        "tonalRamp": [
+          "oklch(0.577 0.245 27.325 / 0.25)",
+          "oklch(0.577 0.245 27.325 / 0.2)",
+          "oklch(0.577 0.245 27.325 / 0.15)",
+          "oklch(0.577 0.245 27.325 / 0.1)",
+          "oklch(0.577 0.245 27.325 / 0.08)",
+          "oklch(0.577 0.245 27.325 / 0.06)",
+          "oklch(0.577 0.245 27.325 / 0.04)",
+          "oklch(0.577 0.245 27.325 / 0.02)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "page": {
+        "displayName": "Page",
+        "purpose": "Toolbar / view titles. Same size as body; weight does the work."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Detail pane headings, row primary text."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default UI copy; prose max ~65\u201375ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav items, field labels."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Secondary row lines, timestamps, helper copy."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Badges, section eyebrows, compact counts."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-state",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Ease-out-quart for state transitions (150\u2013250ms). No bounce."
+      },
+      {
+        "name": "duration-state",
+        "value": "180ms",
+        "purpose": "Default product state change duration."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Harbor Slate compact CTA \u2014 tight radius, Linear-like density.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\">Check this</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 1.75rem; padding: 0 0.625rem; border: 1px solid transparent; border-radius: 0.25rem; background: oklch(0.218 0.008 223.9); color: oklch(0.987 0.002 197.1); font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1.25; cursor: pointer; transition: background 180ms cubic-bezier(0.25, 1, 0.5, 1), transform 120ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-primary:hover { background: oklch(0.218 0.008 223.9 / 0.8); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: none; border-color: oklch(0.723 0.014 214.4); box-shadow: 0 0 0 3px oklch(0.723 0.014 214.4 / 0.3); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action with hairline border.",
+      "html": "<button type=\"button\" class=\"ds-btn-outline\">Not sure</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; height: 1.75rem; padding: 0 0.625rem; border: 1px solid oklch(0.925 0.005 214.3); border-radius: 0.25rem; background: oklch(1 0 0); color: oklch(0.148 0.004 228.8); font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 180ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-outline:hover { background: oklch(0.963 0.002 197.1); } .ds-btn-outline:focus-visible { outline: none; border-color: oklch(0.723 0.014 214.4); box-shadow: 0 0 0 3px oklch(0.723 0.014 214.4 / 0.3); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary action with no chrome at rest.",
+      "html": "<button type=\"button\" class=\"ds-btn-ghost\">Cancel</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; height: 1.75rem; padding: 0 0.625rem; border: 1px solid transparent; border-radius: 0.25rem; background: transparent; color: oklch(0.148 0.004 228.8); font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 180ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-ghost:hover { background: oklch(0.963 0.002 197.1); } .ds-btn-ghost:focus-visible { outline: none; border-color: oklch(0.723 0.014 214.4); box-shadow: 0 0 0 3px oklch(0.723 0.014 214.4 / 0.3); }"
+    },
+    {
+      "name": "Destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Soft-fill risk action; saturation only for danger.",
+      "html": "<button type=\"button\" class=\"ds-btn-destructive\">Report scam</button>",
+      "css": ".ds-btn-destructive { display: inline-flex; align-items: center; justify-content: center; height: 1.75rem; padding: 0 0.625rem; border: 1px solid transparent; border-radius: 0.25rem; background: oklch(0.577 0.245 27.325 / 0.1); color: oklch(0.577 0.245 27.325); font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 180ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-destructive:hover { background: oklch(0.577 0.245 27.325 / 0.2); } .ds-btn-destructive:focus-visible { outline: none; border-color: oklch(0.577 0.245 27.325 / 0.4); box-shadow: 0 0 0 3px oklch(0.577 0.245 27.325 / 0.2); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": null,
+      "description": "Hairline border field for paste-a-charge / message input.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Paste the charge or message</span><input class=\"ds-input\" type=\"text\" placeholder=\"Amazon \u00b7 $49.99 \u00b7 yesterday\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.375rem; font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; } .ds-field-label { font-size: 0.875rem; font-weight: 500; color: oklch(0.148 0.004 228.8); } .ds-input { height: 1.75rem; padding: 0 0.625rem; border: 1px solid oklch(0.925 0.005 214.3); border-radius: 0.25rem; background: oklch(1 0 0); color: oklch(0.148 0.004 228.8); font-size: 0.875rem; } .ds-input::placeholder { color: oklch(0.56 0.021 213.5); opacity: 1; } .ds-input:focus-visible { outline: none; border-color: oklch(0.723 0.014 214.4); box-shadow: 0 0 0 3px oklch(0.723 0.014 214.4 / 0.3); } .ds-input[aria-invalid=\"true\"] { border-color: oklch(0.577 0.245 27.325); box-shadow: 0 0 0 3px oklch(0.577 0.245 27.325 / 0.2); }"
+    },
+    {
+      "name": "Surface Panel",
+      "kind": "card",
+      "refersTo": null,
+      "description": "Flat container with hairline border \u2014 no shadow. Prefer list+detail over boxed cards.",
+      "html": "<div class=\"ds-panel\"><h3 class=\"ds-panel-title\">Likely scam</h3><p class=\"ds-panel-body\">This message asks you to move money urgently. Do not reply or click links.</p></div>",
+      "css": ".ds-panel { padding: 1.25rem; border: 1px solid oklch(0.925 0.005 214.3); border-radius: 0.25rem; background: oklch(1 0 0); font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; } .ds-panel-title { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 550; letter-spacing: -0.01em; color: oklch(0.148 0.004 228.8); text-wrap: balance; } .ds-panel-body { margin: 0; max-width: 65ch; font-size: 0.875rem; line-height: 1.5; color: oklch(0.56 0.021 213.5); text-wrap: pretty; }"
+    },
+    {
+      "name": "Breadcrumb",
+      "kind": "nav",
+      "refersTo": "breadcrumb",
+      "description": "Quiet path chrome in Ink Muted.",
+      "html": "<nav class=\"ds-breadcrumb\" aria-label=\"breadcrumb\"><ol class=\"ds-breadcrumb-list\"><li><a class=\"ds-breadcrumb-link\" href=\"#\">Home</a></li><li aria-hidden=\"true\" class=\"ds-breadcrumb-sep\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m9 18 6-6-6-6\"/></svg></li><li><span class=\"ds-breadcrumb-current\" aria-current=\"page\">Check</span></li></ol></nav>",
+      "css": ".ds-breadcrumb { font-family: \"Geist Variable\", ui-sans-serif, system-ui, sans-serif; } .ds-breadcrumb-list { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; color: oklch(0.56 0.021 213.5); } .ds-breadcrumb-link { color: inherit; text-decoration: none; } .ds-breadcrumb-link:hover { color: oklch(0.148 0.004 228.8); } .ds-breadcrumb-link:focus-visible { outline: none; box-shadow: 0 0 0 3px oklch(0.723 0.014 214.4 / 0.3); border-radius: 0.25rem; } .ds-breadcrumb-sep { display: inline-flex; color: oklch(0.56 0.021 213.5); } .ds-breadcrumb-current { color: oklch(0.148 0.004 228.8); font-weight: 500; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Second Opinion",
+    "overview": "Noscam\u2019s visual system is a calm product surface for watching transaction risk. The UI should feel like a steady colleague: clear hierarchy, plain language, no drama. Density is Linear-like \u2014 compact chrome, issue-list rows, quiet toolbars \u2014 not marketing whitespace. Structure and typography do the work, not decoration.\n\nColor is Harbor Slate \u2014 cool blue-gray ink on white \u2014 money-serious without bank-app theater. Elevation is flat: tonal layers and hairline borders, never lift for its own sake. Components are refined and restrained: tight corner radii, compact controls, quiet hover, focus rings that earn trust for keyboard users.\n\nThis system explicitly rejects loud cybersecurity / red-alert threat theater, bloated personal-finance dashboards, and generic SaaS marketing (purple gradients, feature-card grids, startup hype).",
+    "keyCharacteristics": [
+      "Single sans (Geist Variable) across UI \u2014 no display pairing",
+      "Restrained cool neutrals; saturation reserved for risk/destructive",
+      "Flat tonal depth; no decorative shadows",
+      "Linear-like density: compact sidebar, toolbar page titles, dense list rows, sticky detail pane",
+      "Tight radii (Linear-like 4px controls); no pill buttons; focus ring as the main interaction signal",
+      "One job per screen \u2014 Connect sources, score transactions"
+    ],
+    "rules": [
+      {
+        "name": "The Soft Signal Rule",
+        "body": "Saturation is for risk and error only. Harbor Slate and neutrals carry the UI; never paint inactive chrome in alert red or neon \u201csecurity\u201d accents.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Voice Rule",
+        "body": "Primary fill (Harbor Slate) appears on \u226410% of any screen \u2014 primary CTA and selected emphasis. Its rarity is the point.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fixed Scale Rule",
+        "body": "Product type uses fixed rem steps. No fluid clamp() headings in app chrome. No oversized page titles \u2014 Linear density means page = body size, semibold.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Geist Variable for everything. No serif display, no mono-for-flavor in labels.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. No multi-layer shadows, no glassmorphism, no glow. Hierarchy = tone + border + spacing.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Dense Chrome Rule",
+        "body": "Sidebar nav ~28px tall, toolbars ~44px, list rows compact with hairline dividers. Prefer full-bleed list + sticky detail over centered marketing layouts.",
+        "section": "typography"
+      },
+      {
+        "name": "The Linear Radius Rule",
+        "body": "Fixed radius scale: sm 2px, md 4px (default controls), lg 6px, xl 8px. Cap at 8px. No pills, no soft multiplicative Tailwind radius inflation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep every screen answering one job: connect sources or score transactions.",
+      "Do use Harbor Slate + cool neutrals; reserve saturation for risk/error.",
+      "Do meet WCAG 2.2 AA \u2014 body/placeholder contrast \u22654.5:1; large text \u22653:1; keyboard + prefers-reduced-motion.",
+      "Do use compact tight-radius controls and quiet hover; let the focus ring carry accessibility.",
+      "Do convey depth with tonal layers and hairline borders.",
+      "Do prefer Linear-like density: toolbar titles, dense lists, sticky detail \u2014 not marketing whitespace."
+    ],
+    "donts": [
+      "Don't use loud \u201ccybersecurity\u201d / red-alert threat theater (shields, hacker aesthetics, panic UI).",
+      "Don't build bloated personal-finance dashboards (charts everywhere, budgets, net-worth theater).",
+      "Don't ship generic SaaS marketing (purple gradients, feature-card grids, startup hype).",
+      "Don't use side-stripe borders (border-left/border-right >1px) as accent.",
+      "Don't use gradient text, glassmorphism, or decorative glow.",
+      "Don't invent shadow elevation for cards at rest.",
+      "Don't put display fonts or fluid clamp headings in product UI labels.",
+      "Don't use pill / fully-rounded buttons or large container radii (rounded-xl+); keep corners tight.",
+      "Don't bury a real warning to feel polished \u2014 catch over comfort."
+    ]
+  }
+}

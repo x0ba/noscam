@@ -1,4 +1,5 @@
 import { defineConfig } from "vite-plus";
+import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -8,7 +9,12 @@ export default defineConfig({
   fmt: {
     ignorePatterns: ["components/ui/**"],
   },
-  plugins: [tailwindcss()],
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": new URL(".", import.meta.url).pathname,
+    },
+  },
   lint: {
     ignorePatterns: ["components/ui/**"],
     jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],
