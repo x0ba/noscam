@@ -1,7 +1,17 @@
-import { useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from "react";
 import { Link } from "react-router";
 
+import { Kbd } from "@/src/components/kbd";
 import { RiskBadge } from "@/src/components/risk-badge";
+import { isModKey, isShortcutBlocked } from "@/src/lib/keyboard";
 import { useDemo } from "@/src/lib/demo-state";
 import { formatMoney, type RiskLevel, type Transaction } from "@/src/lib/mock-data";
 import { Button } from "@/components/ui/button";
@@ -20,6 +30,11 @@ export function TransactionsPage() {
   const { accounts, transactions } = useDemo();
   const [filter, setFilter] = useState<Filter>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const listRef = useRef<HTMLUListElement>(null);
+  const filterRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const rowRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const filtersId = useId();
 
   const accountById = useMemo(() => new Map(accounts.map((a) => [a.id, a])), [accounts]);
 
@@ -29,7 +44,126 @@ export function TransactionsPage() {
     return [...list].sort((a, b) => b.riskScore - a.riskScore);
   }, [transactions, filter]);
 
-  const selected = sorted.find((t) => t.id === selectedId) ?? sorted[0] ?? null;
+  const selected = useMemo(() => {
+    if (selectedId) {
+      const match = sorted.find((t) => t.id === selectedId);
+      if (match) return match;
+    }
+    return sorted[0] ?? null;
+  }, [sorted, selectedId]);
+
+  useEffect(() => {
+    if (sorted.length === 0) {
+      setActiveIndex(0);
+      return;
+    }
+    const selectedIndex = selected ? sorted.findIndex((t) => t.id === selected.id) : 0;
+    setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0);
+  }, [sorted, selected]);
+
+  const focusRow = useCallback((index: number) => {
+    const clamped = Math.max(0, Math.min(index, rowRefs.current.length - 1));
+    setActiveIndex(clamped);
+    const row = rowRefs.current[clamped];
+    row?.focus();
+    row?.scrollIntoView({ block: "nearest" });
+  }, []);
+
+  const moveSelection = useCallback(
+    (index: number) => {
+      if (sorted.length === 0) return;
+      const clamped = Math.max(0, Math.min(index, sorted.length - 1));
+      setSelectedId(sorted[clamped].id);
+      focusRow(clamped);
+    },
+    [sorted, focusRow],
+  );
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (isShortcutBlocked(event.target)) return;
+      if (isModKey(event) || event.shiftKey) return;
+
+      if (event.key === "/") {
+        event.preventDefault();
+        const current = FILTERS.findIndex((item) => item.id === filter);
+        filterRefs.current[current >= 0 ? current : 0]?.focus();
+        return;
+      }
+
+      if (sorted.length === 0) return;
+
+      if (event.key === "j") {
+        event.preventDefault();
+        moveSelection(activeIndex + 1);
+        return;
+      }
+
+      if (event.key === "k") {
+        event.preventDefault();
+        moveSelection(activeIndex - 1);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [filter, sorted.length, activeIndex, moveSelection]);
+
+  const onListKeyDown = (event: ReactKeyboardEvent<HTMLUListElement>) => {
+    if (sorted.length === 0) return;
+    if (isModKey(event)) return;
+
+    switch (event.key) {
+      case "ArrowDown":
+        event.preventDefault();
+        moveSelection(activeIndex + 1);
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        moveSelection(activeIndex - 1);
+        break;
+      case "Home":
+        event.preventDefault();
+        moveSelection(0);
+        break;
+      case "End":
+        event.preventDefault();
+        moveSelection(sorted.length - 1);
+        break;
+      case "Enter":
+      case " ":
+        event.preventDefault();
+        if (sorted[activeIndex]) setSelectedId(sorted[activeIndex].id);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onFilterKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>, index: number) => {
+    if (isModKey(event)) return;
+
+    let next = index;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      next = (index + 1) % FILTERS.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      next = (index - 1 + FILTERS.length) % FILTERS.length;
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      next = 0;
+    } else if (event.key === "End") {
+      event.preventDefault();
+      next = FILTERS.length - 1;
+    } else {
+      return;
+    }
+
+    setFilter(FILTERS[next].id);
+    setSelectedId(null);
+    filterRefs.current[next]?.focus();
+  };
 
   if (accounts.length === 0) {
     return (
@@ -61,25 +195,48 @@ export function TransactionsPage() {
             <h1 className="text-sm font-semibold tracking-tight text-foreground">Transactions</h1>
             <span className="text-xs tabular-nums text-muted-foreground">{sorted.length}</span>
           </div>
-          <div role="group" aria-label="Filter by risk" className="flex items-center gap-0.5">
-            {FILTERS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => {
-                  setFilter(item.id);
-                  setSelectedId(null);
-                }}
-                className={cn(
-                  "h-6 rounded-[var(--radius-sm)] px-2 text-xs font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
-                  filter === item.id
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
-                )}
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <div
+              role="radiogroup"
+              aria-label="Filter by risk"
+              id={filtersId}
+              className="flex items-center gap-0.5"
+              onKeyDown={(event) => {
+                const index = FILTERS.findIndex((item) => item.id === filter);
+                onFilterKeyDown(event, index >= 0 ? index : 0);
+              }}
+            >
+              {FILTERS.map((item, index) => {
+                const checked = filter === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    ref={(node) => {
+                      filterRefs.current[index] = node;
+                    }}
+                    type="button"
+                    role="radio"
+                    aria-checked={checked}
+                    tabIndex={checked ? 0 : -1}
+                    onClick={() => {
+                      setFilter(item.id);
+                      setSelectedId(null);
+                    }}
+                    className={cn(
+                      "h-6 rounded-[var(--radius-sm)] px-2 text-xs font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
+                      checked
+                        ? "bg-muted text-foreground"
+                        : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                    )}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </div>
+            <span className="hidden items-center gap-1 text-xs text-muted-foreground sm:inline-flex">
+              <Kbd>/</Kbd>
+            </span>
           </div>
         </div>
 
@@ -88,14 +245,32 @@ export function TransactionsPage() {
             No transactions match this filter.
           </p>
         ) : (
-          <ul className="flex flex-col" role="listbox" aria-label="Transactions">
-            {sorted.map((txn) => {
+          <ul
+            ref={listRef}
+            className="flex flex-col"
+            role="listbox"
+            aria-label="Transactions"
+            onKeyDown={onListKeyDown}
+          >
+            {sorted.map((txn, index) => {
               const isSelected = selected?.id === txn.id;
+              const isActive = index === activeIndex;
               return (
-                <li key={txn.id} role="option" aria-selected={isSelected}>
+                <li key={txn.id} role="presentation">
                   <button
+                    id={`txn-option-${txn.id}`}
+                    ref={(node) => {
+                      rowRefs.current[index] = node;
+                    }}
                     type="button"
-                    onClick={() => setSelectedId(txn.id)}
+                    role="option"
+                    aria-selected={isSelected}
+                    tabIndex={isActive ? 0 : -1}
+                    onClick={() => {
+                      setSelectedId(txn.id);
+                      setActiveIndex(index);
+                    }}
+                    onFocus={() => setActiveIndex(index)}
                     className={cn(
                       "group flex w-full items-center gap-3 border-b border-border px-4 py-2 text-left transition-colors outline-none sm:px-5",
                       "focus-visible:bg-muted/80 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40",
@@ -190,6 +365,14 @@ function TransactionDetail({ txn, bank }: { txn: Transaction; bank?: string }) {
             money.
           </p>
         ) : null}
+
+        <p className="text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <Kbd>j</Kbd>
+            <Kbd>k</Kbd>
+          </span>{" "}
+          to move · <Kbd>?</Kbd> for all shortcuts
+        </p>
       </div>
     </aside>
   );

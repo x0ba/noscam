@@ -26,11 +26,11 @@ public class PublicAuthService {
     String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
     boolean duplicateEmail = userRepository.existsByEmailIgnoreCase(normalizedEmail);
 
-    String passwordHash = passwordEncoder.encode(password);
-
     if (duplicateEmail) {
       throw new EmailAlreadyExistsException();
     }
+
+    String passwordHash = passwordEncoder.encode(password);
 
     User user =
         User.builder()

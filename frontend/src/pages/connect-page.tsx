@@ -1,6 +1,7 @@
 import { useId, useRef } from "react";
 import { FileUpIcon, LandmarkIcon, LoaderCircleIcon, UnplugIcon } from "lucide-react";
 
+import { Kbd } from "@/src/components/kbd";
 import { useDemo } from "@/src/lib/demo-state";
 import { accountTypeLabel, formatMoney, type ConnectedAccount } from "@/src/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,12 @@ export function ConnectPage() {
             Plaid or CSV — then every charge gets a risk score.
           </p>
         </div>
+        <p className="hidden items-center gap-1 text-xs text-muted-foreground sm:inline-flex">
+          <Kbd>g</Kbd>
+          <span className="text-muted-foreground/70">then</span>
+          <Kbd>t</Kbd>
+          <span>Transactions</span>
+        </p>
       </div>
 
       <div className="flex flex-col gap-8 px-4 py-4 sm:px-5">

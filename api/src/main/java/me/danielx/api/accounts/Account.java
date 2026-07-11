@@ -10,9 +10,10 @@ import me.danielx.api.users.User;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", indexes = @Index(name = "idx_accounts_user_id", columnList = "user_id"))
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Account {
@@ -23,6 +24,7 @@ public class Account {
 
   @Column(nullable = false, unique = true, updatable = false)
   @NotNull
+  @Builder.Default
   private UUID publicId = UUID.randomUUID();
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
