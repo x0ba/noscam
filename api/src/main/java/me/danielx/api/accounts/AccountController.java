@@ -4,6 +4,7 @@ import me.danielx.api.accounts.dto.AccountListResponse;
 import me.danielx.api.accounts.dto.AccountResponse;
 import me.danielx.api.accounts.dto.CreateAccountRequest;
 import me.danielx.api.users.dto.AuthenticatedUser;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,14 +18,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/accounts")
 public class AccountController {
 
-  AccountService accountService;
+  private final AccountService accountService;
+
+  public AccountController(AccountService accountService) {
+    this.accountService = accountService;
+  }
 
   @GetMapping("/")
-  public Page<AccountListResponse> getAccountsForCurrentUser(
+  public ResponseEntity<Page<AccountListResponse>> getAccountsForCurrentUser(
       @AuthenticationPrincipal AuthenticatedUser currentUser,
-      @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
-          Pageable pageable) {
-    return accountService.getAllAccountsForCurrentUser(currentUser, pageable);
+      @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+    Page<AccountListResponse> page =
+        accountService.getAllAccountsForCurrentUser(currentUser, pageable);
+    return ResponseEntity.ok(page);
   }
 
   @PostMapping("/")
