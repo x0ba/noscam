@@ -28,7 +28,13 @@ public class SecurityConfig {
             auth ->
                 auth.dispatcherTypeMatchers(DispatcherType.ERROR)
                     .permitAll()
-                    .requestMatchers("/api/v1/auth/register", "/actuator/health")
+                    .requestMatchers(
+                        "/api/v1/auth/register",
+                        "/actuator/health",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs",
+                        "/v3/api-docs/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated())
