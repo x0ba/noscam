@@ -43,7 +43,7 @@ public class Transaction {
   private SourceType sourceType;
 
   @NotNull
-  @Column(nullable = false, updatable = false)
+  @Column(updatable = false)
   private String externalId;
 
   @NotNull
