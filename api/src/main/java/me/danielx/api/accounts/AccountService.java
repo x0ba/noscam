@@ -1,13 +1,16 @@
 package me.danielx.api.accounts;
 
+import java.math.BigDecimal;
 import me.danielx.api.accounts.dto.AccountListResponse;
 import me.danielx.api.accounts.dto.AccountResponse;
 import me.danielx.api.accounts.dto.CreateAccountRequest;
 import me.danielx.api.users.User;
+import me.danielx.api.users.AuthenticatedUserNotFoundException;
 import me.danielx.api.users.UserRepository;
 import me.danielx.api.users.dto.AuthenticatedUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,16 +38,24 @@ public class AccountService {
 
   public AccountResponse createAccountForCurrentUser(
       AuthenticatedUser currentUser, CreateAccountRequest request) {
-    User currentUserEntity = userRepository.findById(currentUser.id()).orElseThrow();
+    User currentUserEntity =
+        userRepository
+            .findById(currentUser.id())
+            .orElseThrow(AuthenticatedUserNotFoundException::new);
     Account account =
         Account.builder()
             .user(currentUserEntity)
             .bank(request.bank())
             .accountName(request.accountName())
             .accountType(request.type())
+            .balance(BigDecimal.ZERO)
             .currency(request.currency())
             .build();
-    Account savedAccount = accountRepository.save(account);
-    return AccountResponse.fromAccount(savedAccount);
+    try {
+      Account savedAccount = accountRepository.saveAndFlush(account);
+      return AccountResponse.fromAccount(savedAccount);
+    } catch (DataIntegrityViolationException ex) {
+      throw new AccountCreationException(ex);
+    }
   }
 }

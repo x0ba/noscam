@@ -7,6 +7,7 @@ import me.danielx.api.auth.dto.RegisterResponse;
 import me.danielx.api.users.User;
 import me.danielx.api.users.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,12 @@ public class PublicAuthService {
           .createdAt(savedUser.getCreatedAt())
           .build();
     } catch (DataIntegrityViolationException ex) {
-      throw new EmailAlreadyExistsException();
+      if (ex.getCause() instanceof ConstraintViolationException constraintViolation
+          && constraintViolation.getConstraintName() != null
+          && constraintViolation.getConstraintName().toLowerCase(Locale.ROOT).contains("email")) {
+        throw new EmailAlreadyExistsException();
+      }
+      throw new UserRegistrationException(ex);
     }
   }
 }

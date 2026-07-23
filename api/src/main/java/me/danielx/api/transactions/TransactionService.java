@@ -1,9 +1,10 @@
 package me.danielx.api.transactions;
 
 import me.danielx.api.accounts.Account;
+import me.danielx.api.accounts.AccountNotFoundException;
 import me.danielx.api.accounts.AccountRepository;
-import me.danielx.api.transactions.dto.CreateTransactionRequest;
 import me.danielx.api.transactions.dto.CreateTransactionResponse;
+import me.danielx.api.users.AuthenticatedUserNotFoundException;
 import me.danielx.api.users.User;
 import me.danielx.api.users.UserRepository;
 import me.danielx.api.users.dto.AuthenticatedUser;
@@ -30,11 +31,17 @@ public class TransactionService {
 
   public CreateTransactionResponse manuallyCreateTransaction(
       AuthenticatedUser authenticatedUser, UUID accountId, BigDecimal amount, String currency) {
-    User user = userRepository.findById(authenticatedUser.id()).orElseThrow();
-    Account account = accountRepository.findByPublicId(accountId).orElseThrow();
+    User user =
+        userRepository
+            .findById(authenticatedUser.id())
+            .orElseThrow(AuthenticatedUserNotFoundException::new);
+    Account account =
+        accountRepository
+            .findByPublicIdAndUserId(accountId, authenticatedUser.id())
+            .orElseThrow(() -> new AccountNotFoundException(accountId));
 
     if (!currency.equalsIgnoreCase(account.getCurrency())) {
-      throw new IllegalArgumentException("Currency does not match account currency");
+      throw new TransactionCurrencyMismatchException(currency, account.getCurrency());
     }
 
     Transaction transaction =
@@ -44,20 +51,21 @@ public class TransactionService {
             .sourceType(SourceType.MANUAL)
             .externalId(null)
             .amount(amount)
-            .currencyCode(currency)
+            .currencyCode(account.getCurrency())
             .build();
 
+    Transaction savedTransaction;
     try {
-      Transaction savedTransaction = transactionRepository.saveAndFlush(transaction);
-      return CreateTransactionResponse.builder()
-          .id(savedTransaction.getPublicId())
-          .accountId(accountId)
-          .amount(amount)
-          .currencyCode(currency)
-          .createdAt(savedTransaction.getCreatedAt())
-          .build();
+      savedTransaction = transactionRepository.saveAndFlush(transaction);
     } catch (DataIntegrityViolationException ex) {
-      throw new TransactionAlreadyExistsException("Transaction already exists");
+      throw new TransactionCreationException(ex);
     }
+    return CreateTransactionResponse.builder()
+        .id(savedTransaction.getPublicId())
+        .accountId(accountId)
+        .amount(amount)
+        .currencyCode(account.getCurrency())
+        .createdAt(savedTransaction.getCreatedAt())
+        .build();
   }
 }

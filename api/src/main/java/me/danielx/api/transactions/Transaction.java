@@ -42,7 +42,6 @@ public class Transaction {
   @Enumerated(EnumType.STRING)
   private SourceType sourceType;
 
-  @NotNull
   @Column(updatable = false)
   private String externalId;
 
