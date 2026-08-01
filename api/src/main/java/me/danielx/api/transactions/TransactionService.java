@@ -12,7 +12,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+
+import static me.danielx.api.global.utils.Sha256Util.sha256;
 
 @Service
 public class TransactionService {
@@ -30,7 +33,18 @@ public class TransactionService {
   }
 
   public CreateTransactionResponse manuallyCreateTransaction(
-      AuthenticatedUser authenticatedUser, UUID accountId, BigDecimal amount, String currency) {
+      AuthenticatedUser authenticatedUser,
+      UUID accountId,
+      BigDecimal amount,
+      String currency,
+      String idempotencyKey) {
+
+    StringBuilder toHash = new StringBuilder();
+    toHash.append("POST");
+    toHash.append("/api/v1/transactions");
+    toHash.append(authenticatedUser.id());
+    String hash = sha256(toHash.toString());
+
     User user =
         userRepository
             .findById(authenticatedUser.id())

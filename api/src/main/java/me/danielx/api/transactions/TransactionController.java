@@ -41,6 +41,7 @@ public class TransactionController {
   })
   public ResponseEntity<CreateTransactionResponse> manuallyCreateTransaction(
       @AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+      @RequestHeader("Idempotency-Key") String idempotencyKey,
       @Valid @RequestBody CreateTransactionRequest request) {
     UUID accountId = request.accountId();
     BigDecimal amount = request.amount();
@@ -48,7 +49,7 @@ public class TransactionController {
 
     CreateTransactionResponse transaction =
         transactionService.manuallyCreateTransaction(
-            authenticatedUser, accountId, amount, currency);
+            authenticatedUser, accountId, amount, currency, idempotencyKey);
 
     URI location = URI.create("/api/v1/transactions/" + transaction.id());
 

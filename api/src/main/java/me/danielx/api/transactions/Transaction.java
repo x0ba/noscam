@@ -64,8 +64,9 @@ public class Transaction {
 
   @PrePersist
   private void onCreate() {
-    this.createdAt = Instant.now();
-    this.updatedAt = Instant.now();
+    Instant now = Instant.now();
+    this.createdAt = now;
+    this.updatedAt = now;
   }
 
   @PreUpdate
