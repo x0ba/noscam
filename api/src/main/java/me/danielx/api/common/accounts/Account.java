@@ -1,4 +1,4 @@
-package me.danielx.api.accounts;
+package me.danielx.api.common.accounts;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.*;
+import me.danielx.api.plaid.PlaidItem;
 import me.danielx.api.users.User;
 import org.hibernate.validator.constraints.Length;
 
@@ -31,6 +32,10 @@ public class Account {
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
   private User user;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "plaid_item_id")
+  private PlaidItem plaidItem;
+
   @NotNull
   @Length(max = 150)
   @Column(nullable = false, length = 150)
@@ -55,6 +60,24 @@ public class Account {
   @Column(nullable = false, length = 3)
   private String currency;
 
+  @Column(length = 128)
+  private String providerAccountId;
+
+  @Column(length = 16)
+  private String mask;
+
+  @NotNull
+  @Builder.Default
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 32)
+  private AccountSourceType sourceType = AccountSourceType.MANUAL;
+
+  @NotNull
+  @Builder.Default
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 32)
+  private AccountStatus status = AccountStatus.ACTIVE;
+
   @NotNull
   @Column(nullable = false)
   private Instant createdAt;
@@ -68,6 +91,12 @@ public class Account {
     Instant now = Instant.now();
     this.createdAt = now;
     this.updatedAt = now;
+    if (this.sourceType == null) {
+      this.sourceType = AccountSourceType.MANUAL;
+    }
+    if (this.status == null) {
+      this.status = AccountStatus.ACTIVE;
+    }
   }
 
   @PreUpdate

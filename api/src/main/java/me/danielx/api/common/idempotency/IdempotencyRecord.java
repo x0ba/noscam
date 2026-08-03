@@ -1,6 +1,5 @@
-package me.danielx.api.global;
+package me.danielx.api.common.idempotency;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;

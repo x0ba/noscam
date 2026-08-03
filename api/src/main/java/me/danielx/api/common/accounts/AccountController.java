@@ -1,4 +1,4 @@
-package me.danielx.api.accounts;
+package me.danielx.api.common.accounts;
 
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
@@ -6,9 +6,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import me.danielx.api.accounts.dto.AccountListResponse;
-import me.danielx.api.accounts.dto.AccountResponse;
-import me.danielx.api.accounts.dto.CreateAccountRequest;
+import me.danielx.api.common.accounts.dto.AccountListResponse;
+import me.danielx.api.common.accounts.dto.AccountResponse;
+import me.danielx.api.common.accounts.dto.CreateAccountRequest;
 import me.danielx.api.users.dto.AuthenticatedUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

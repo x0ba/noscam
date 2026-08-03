@@ -1,10 +1,8 @@
-package me.danielx.api.accounts.dto;
+package me.danielx.api.common.accounts.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.NonNull;
-import me.danielx.api.accounts.AccountType;
+import me.danielx.api.common.accounts.AccountType;
 import org.hibernate.validator.constraints.Length;
 
 public record CreateAccountRequest(

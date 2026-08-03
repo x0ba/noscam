@@ -1,4 +1,4 @@
-package me.danielx.api.global;
+package me.danielx.api.common.idempotency;
 
 public enum HttpMethod {
   POST,

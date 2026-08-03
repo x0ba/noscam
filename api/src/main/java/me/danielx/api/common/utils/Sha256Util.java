@@ -1,4 +1,4 @@
-package me.danielx.api.global.utils;
+package me.danielx.api.common.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

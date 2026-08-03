@@ -1,4 +1,4 @@
-package me.danielx.api.accounts;
+package me.danielx.api.common.accounts;
 
 public class AccountCreationException extends RuntimeException {
   public AccountCreationException(Throwable cause) {

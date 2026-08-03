@@ -1,9 +1,10 @@
-package me.danielx.api.accounts;
+package me.danielx.api.common.accounts;
 
 import java.math.BigDecimal;
-import me.danielx.api.accounts.dto.AccountListResponse;
-import me.danielx.api.accounts.dto.AccountResponse;
-import me.danielx.api.accounts.dto.CreateAccountRequest;
+import java.util.Locale;
+import me.danielx.api.common.accounts.dto.AccountListResponse;
+import me.danielx.api.common.accounts.dto.AccountResponse;
+import me.danielx.api.common.accounts.dto.CreateAccountRequest;
 import me.danielx.api.users.User;
 import me.danielx.api.users.AuthenticatedUserNotFoundException;
 import me.danielx.api.users.UserRepository;
@@ -28,12 +29,7 @@ public class AccountService {
     Long userId = currentUser.id();
     return accountRepository
         .findAllByUserId(userId, pageable)
-        .map(AccountService::toAccountListResponse);
-  }
-
-  private static AccountListResponse toAccountListResponse(Account account) {
-    return new AccountListResponse(
-        account.getPublicId(), account.getBank(), account.getAccountName(), account.getBalance());
+        .map(AccountListResponse::from);
   }
 
   public AccountResponse createAccountForCurrentUser(
@@ -49,7 +45,9 @@ public class AccountService {
             .accountName(request.accountName())
             .accountType(request.type())
             .balance(BigDecimal.ZERO)
-            .currency(request.currency())
+            .currency(request.currency().toUpperCase(Locale.ROOT))
+            .sourceType(AccountSourceType.MANUAL)
+            .status(AccountStatus.ACTIVE)
             .build();
     try {
       Account savedAccount = accountRepository.saveAndFlush(account);

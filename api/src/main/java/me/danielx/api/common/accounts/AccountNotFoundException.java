@@ -1,4 +1,4 @@
-package me.danielx.api.accounts;
+package me.danielx.api.common.accounts;
 
 import java.util.UUID;
 
