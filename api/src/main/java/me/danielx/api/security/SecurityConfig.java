@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +29,9 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(
                         "/api/v1/auth/register",
+                        "/api/v1/plaid/webhook",
                         "/actuator/health",
+                        "/actuator/health/**",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/v3/api-docs",
@@ -63,7 +64,10 @@ public class SecurityConfig {
                     (request, response, exception) ->
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
         .requestCache(RequestCacheConfigurer::disable)
-        .csrf(CsrfConfigurer::spa)
+        .csrf(
+            csrf ->
+                csrf.spa()
+                    .ignoringRequestMatchers("/api/v1/plaid/webhook"))
         .build();
   }
 

@@ -4,6 +4,7 @@ import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import me.danielx.api.auth.dto.RegisterRequest;
 import me.danielx.api.auth.dto.RegisterResponse;
+import me.danielx.api.risk.RiskSettingsService;
 import me.danielx.api.users.User;
 import me.danielx.api.users.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,7 @@ public class PublicAuthService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final RiskSettingsService riskSettingsService;
 
   public RegisterResponse register(RegisterRequest request) {
     String email = request.email();
@@ -43,6 +45,7 @@ public class PublicAuthService {
 
     try {
       User savedUser = userRepository.saveAndFlush(user);
+      riskSettingsService.getOrCreate(savedUser);
       return RegisterResponse.builder()
           .publicId(savedUser.getPublicId())
           .email(savedUser.getEmail())
